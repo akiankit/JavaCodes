@@ -1,4 +1,4 @@
-package com.datastructure.ds;
+package com.learning.geeksforgeeks;
 
 import java.io.BufferedWriter;
 import java.io.IOException;

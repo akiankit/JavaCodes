@@ -1,4 +1,4 @@
-package com.misc;
+package com.learning.geeksforgeeks;
 
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -154,7 +154,7 @@ class LineSegmentTree {
     LineSegmentNode root;
  
     public void addVal(int start, int end) {
-        root = addNode(root,new LineSegmentNode(start, end));
+//        root = addNode(root,new LineSegmentNode(start, end));
     }
     
     private static LineSegmentNode RotateLL(LineSegmentNode root) {

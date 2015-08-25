@@ -1,5 +1,4 @@
-package com.datastructure.ds;
-
+package com.learning.geeksforgeeks;
 public class BST {
 	 
     BSTNode root;

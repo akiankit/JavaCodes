@@ -1,4 +1,4 @@
-package com.strings;
+package com.learning.geeksforgeeks;
 
 public class InterleavingString {
 

@@ -1,4 +1,4 @@
-package com.leetcode.medium;
+package com.learning.geeksforgeeks;
 
 public class LRUCache {
 

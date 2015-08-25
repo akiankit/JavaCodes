@@ -1,5 +1,4 @@
-package com.misc;
-
+package com.learning.geeksforgeeks;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;

@@ -1,5 +1,4 @@
-package com.misc;
-
+package com.learning.geeksforgeeks;
 import java.util.Arrays;
 import java.util.Scanner;
 

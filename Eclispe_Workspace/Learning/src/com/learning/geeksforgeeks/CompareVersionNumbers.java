@@ -1,5 +1,4 @@
-package com.strings;
-
+package com.learning.geeksforgeeks;
 public class CompareVersionNumbers {
 
 	public static void main(String[] args) {

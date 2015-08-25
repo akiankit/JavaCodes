@@ -1,4 +1,4 @@
-package com.datastructure.ds;
+package com.learning.geeksforgeeks;
 
 import java.util.Stack;
 
