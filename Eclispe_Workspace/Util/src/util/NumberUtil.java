@@ -636,9 +636,9 @@ public class NumberUtil {
         if(n.equals("0") || n.equals("1")) 
             return "1";
         else {
-            String a = "1";
+            String a = "0";
             String b = "1";
-            String i = "2";
+            String i = "1";
             while(!n.equalsIgnoreCase(i)) {
                 String c = addLargeNumbersOfDifferentLength(a, b);
                 b = a;
@@ -652,7 +652,7 @@ public class NumberUtil {
     static public List<String> getFibonacciSeriesNTerms(int n) {
         List<String> series = new LinkedList<String>();
         String nthTerm = "";
-        String f0 = "1";
+        String f0 = "0";
         String f1 = "1";
         if (n == 1) {
             series.add(f0);

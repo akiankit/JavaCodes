@@ -1,11 +1,9 @@
 package com.leetcode.arrays;
 
 public class SearchInA2DMatrix {
+	private static int row,col;
 
-    /**
-     * @param args
-     */
-    public static void main(String[] args) {
+	public static void main(String[] args) {
         int[][] matrix = {
                 /*{1,   4,  7, 11, 15},
                 {2,   5,  8, 12, 19},
