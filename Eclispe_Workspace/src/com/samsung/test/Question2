@@ -1,0 +1,41 @@
+Given the set of nine digits {1, 2, 3, 4, 5, 6, 7, 8, 9}, four different digits of the set will be given. By using each of the digit exactly once, you can generate 4! = 4 x 3 x 2 x 1 = 24 kinds of 4-digit-numbers. For example, when 1, 3, 4, and 8 are given, the 4-digit-numbers that could be generated are 1348, 1384, 1438, 1483, 1834, 1843, 3148, 3184, ..., in increasing order. Among them, 6-th smallest number is 1843.
+
+  
+Given a positive integer K, and 4 different digits from {1, 2, 3, 4, 5, 6, 7, 8, 9}, find the K-th smallest 4-digit-number that could be generated using the 4 given digits.
+
+  
+
+
+
+[Input]
+
+10 test cases are given in 10 lines, where each test case occupies one line. Each test case has an integer K(1≤K≤24), and four digits. Each numbers will be separated by blanks.
+
+Among the 10 test cases, The first three cases will satisfy K=1, and the following three cases will satisfy K=2. And for the last four cases, 1≤K≤24.
+
+  
+[Output]
+
+You print 10 answers in 10 lines. Each line starts with ‘#x’ where x means the case number, puts a space, and writes the K’th smallest number. 
+
+  
+[I/O Example]
+
+Input (10 lines in total)
+
+
+6 1 3 4 8   // k = 6, four digits :1,3,4,8 
+
+13 2 4 1 3  // k = 13, four digits :2,4,1,3 
+
+...
+ 
+
+
+Output (10 lines in total)
+
+
+#1 1843
+
+#2 3124
+ 

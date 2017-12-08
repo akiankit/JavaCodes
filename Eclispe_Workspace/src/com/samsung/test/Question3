@@ -1,0 +1,143 @@
+It is a fundamental job to identify the clusters, in games or graphical entities. There may be a variety of clusters; but here we consider a particular type of clusters. We define a set of black cells to be a black cluster if every pair of the cells in the set can reach each other by only horizontal and vertical moves on black cells. That is, a diagonal move is not allowed for determining a cluster. Figures 1 to 10 are examples with only one black cluster. A single separated black cell as Figure 3 is also a black cluster. 
+
+  
+
+  
+
+
+
+Figures 11 through 13 show examples with more than one black cluster; they have two, two, three black clusters, respectively. The diagonally connected cells in Figure 13 do not make a cluster.
+
+  
+
+
+
+
+  
+The definition of a white cluster is the same as a black cluster except the color. In each of Figures 1 through 5, all the white cells constitute a white cluster; so the figures each has two clusters in total: one black cluster and one white cluster. Figures 6, 7, and 8 each has two white clusters; so the figures each has three clusters in total. Figures 9 and 10 each has three white clusters; so the figures each has four clusters in total. Figures 11, 12, and 13 have three, four, four clusters in total, respectively.
+
+  
+Given an N*N matrix with black and white cells, generate a program that identifies the number of clusters in total. 
+
+  
+ 
+
+[Input]
+
+20 test cases are given. In each test case, the first line has the dimension N of the matrix. 2≤N≤500. The next N lines provide the state of the matrix. A black cell is filled with 1, and the white cell with 0. Each cell is separated by a space. 
+
+  
+[Output]
+
+Write the 20 answers in 20 lines. Each line starts with “#x” where x means the case index, puts a space, and prints the answer. The answer is a positive integer.
+
+  
+[I/O Example] 
+
+Input
+
+
+9
+
+0 0 0 0 0 0 0 0 0
+
+0 0 1 1 1 1 1 1 1
+
+0 0 1 1 1 1 1 1 1
+
+0 0 1 0 1 1 1 1 1
+
+0 0 1 0 1 1 1 1 1
+
+0 0 1 0 1 1 1 1 1
+
+0 0 1 0 0 0 1 1 1
+
+0 0 1 1 1 1 1 1 0
+
+0 0 0 0 1 1 1 0 0
+
+5 
+
+0 0 0 0 0 
+
+0 1 1 1 1
+
+0 1 1 0 0
+
+0 1 1 1 1
+
+0 0 0 1 0
+
+2
+
+0 0
+
+0 0
+
+5
+
+1 1 1 1 0
+
+1 0 0 0 0
+
+1 1 1 0 0
+
+1 0 0 1 1
+
+1 1 1 0 0
+
+10
+
+0 0 0 0 0 0 0 0 0 0 
+
+0 1 1 1 1 1 1 1 1 0
+
+0 1 1 1 1 1 1 1 1 0
+
+0 1 1 0 0 0 0 1 1 0
+
+0 1 1 1 0 1 0 1 1 0
+
+0 1 1 1 1 1 0 1 1 0
+
+0 1 1 1 1 1 1 0 0 0
+
+0 0 0 0 0 0 0 1 0 0
+
+0 0 0 0 0 0 0 0 1 0
+
+0 0 0 0 0 0 0 0 0 1
+
+4
+
+0 0 0 0
+
+1 1 1 1
+
+0 0 0 0
+
+0 0 0 0
+
+...
+ 
+
+
+  
+Output (20 lines in total)
+
+
+#1 4
+
+#2 4
+
+#3 1
+
+#4 5
+
+#5 6
+
+#6 3
+
+...
+ 
