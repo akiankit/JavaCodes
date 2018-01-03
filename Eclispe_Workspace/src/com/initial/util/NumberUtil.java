@@ -1,9 +1,12 @@
 package com.initial.util;
 
+import java.math.BigInteger;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class NumberUtil {
 
@@ -73,6 +76,39 @@ public class NumberUtil {
 			if ((b & 1) == 1)
 				res = multiplyTwoLargeNumberFaster(res, num1);
 			num1 = multiplyTwoLargeNumberFaster(num1, num1);
+			b = b >> 1;
+		}
+		return res;
+	}
+
+	static public long calculateModPower(long a, long b, long mod) {
+		long maxAllowed = (long) Math.sqrt(Long.MAX_VALUE);
+		if (mod >= maxAllowed) {
+			return calculateModPower(a, b, new BigInteger(String.valueOf(mod))).longValue();
+		}
+		long res = 1;
+		while (b != 0) {
+			if ((b & 1) == 1)
+				res = (res * a) % mod;
+			// if (res < 0) {
+			// res = res + mod;
+			// }
+			a = (a * a) % mod;
+			b = b >> 1;
+		}
+		return res;
+	}
+
+	static public BigInteger calculateModPower(long a, long b, BigInteger mod) {
+		BigInteger res = new BigInteger("1");
+		BigInteger a1 = new BigInteger(String.valueOf(a));
+		while (b != 0) {
+			if ((b & 1) == 1)
+				res = res.multiply(a1).mod(mod);
+			// if (res < 0) {
+			// res = res + mod;
+			// }
+			a1 = a1.multiply(a1).mod(mod);
 			b = b >> 1;
 		}
 		return res;
@@ -223,17 +259,6 @@ public class NumberUtil {
 		return res;
 	}
 
-	static public long calculateModPower(long a, long b, long mod) {
-		long res = 1;
-		while (b != 0) {
-			if ((b & 1) == 1)
-				res = (res * a) % mod;
-			a = (a * a) % mod;
-			b = b >> 1;
-		}
-		return res;
-	}
-
 	static public long getGCdEuclid(long a, long b) {
 		if (b == 0)
 			return a;
@@ -245,7 +270,8 @@ public class NumberUtil {
 		for (int i = 1; i < n + 1; i++) {
 			arr[i] = 1;
 		}
-		for (int i = 3; i <= n; i += 2) {
+		int sqrtN = (int) Math.sqrt(n);
+		for (int i = 3; i <= sqrtN; i += 2) {
 			for (int j = 3 * i; j <= n; j += (i + i)) {
 				arr[j] = 0;
 			}
@@ -258,6 +284,28 @@ public class NumberUtil {
 		return count;
 	}
 
+	static public Set<Long> getPrimesListLessThanNSieve(int n) {
+		int[] arr = new int[n + 1];
+		for (int i = 1; i < n + 1; i++) {
+			arr[i] = 1;
+		}
+		int sqrtN = (int) Math.sqrt(n);
+		for (int i = 3; i <= sqrtN; i += 2) {
+			for (int j = 3 * i; j <= n; j += (i + i)) {
+				arr[j] = 0;
+			}
+		}
+		Set<Long> primes = new HashSet<>();
+		for (int i = 3; i <= n; i += 2) {
+			if (arr[i] == 1)
+				primes.add((long) i);
+		}
+		if (n > 2) {
+			primes.add((long) 2);
+		}
+		return primes;
+	}
+
 	static public boolean isPrime(long n) {
 		boolean isPrime = true;
 		if (1 == n) {
@@ -265,6 +313,8 @@ public class NumberUtil {
 		} else if (2 == n) {
 			isPrime = true;
 		} else if (n % 2 == 0) {
+			isPrime = false;
+		} else if (n != 5 && n % 5 == 0) {
 			isPrime = false;
 		} else {
 			double sqrt = Math.sqrt(n);
@@ -310,6 +360,18 @@ public class NumberUtil {
 		return primes[n - 1];
 	}
 
+	/**
+	 * This method does not use SIEVE method to get primes list. To get list of
+	 * primes <b>below 1,000,000 it took 1216 ms.</b> :
+	 * 
+	 * <pre>
+	 * Please use this method : NumberUtil#getPrimesListLessThanNSieve(int)
+	 * </pre>
+	 *
+	 * @param n
+	 *            -- number below which all primes
+	 * @return List of primes in a sorted list
+	 */
 	static public List<Long> getListOfPrimesLessThanN(int n) {
 		List<Long> primes = new LinkedList<>();
 		if (n >= 2) {
@@ -366,7 +428,7 @@ public class NumberUtil {
 			return 2;
 		else {
 			int numOfFactors = 1;
-			List<Long> primeFactors = getPrimeFactors(n);
+			Set<Long> primeFactors = getPrimeFactors(n);
 			int[] primeFactorsPowers = new int[primeFactors.size()];
 			int k = 0;
 			for (Long long1 : primeFactors) {
@@ -442,8 +504,8 @@ public class NumberUtil {
 	}
 
 	// Modify it with prime factorization
-	public static List<Long> getPrimeFactors(long n) {
-		List<Long> primeFactors = new LinkedList<>();
+	public static Set<Long> getPrimeFactors(long n) {
+		Set<Long> primeFactors = new HashSet<>(50);
 		int sqrt = (int) Math.sqrt(n);
 		// List<Long> primes_Less_Than_N = list_Of_Primes_Less_Than_N(sqrt);
 		for (long temp = 2; temp <= sqrt; temp++) {
@@ -451,17 +513,17 @@ public class NumberUtil {
 				primeFactors.add(temp);
 			}
 		}
-		List<Long> primeFactors2 = new LinkedList<>();
+		Set<Long> primeFactors2 = new HashSet<>(25);
 		for (Long long1 : primeFactors) {
 			long temp = n / long1;
-			if (false == primeFactors.contains(temp) && isPrime((int) temp)) {
+			if (isPrime(temp)) {
 				primeFactors2.add(temp);
 			}
 		}
 		primeFactors.addAll(primeFactors2);
 		primeFactors2.clear();
 		for (Long long1 : primeFactors) {
-			if (isPrime(long1) == true) {
+			if (isPrime(long1)) {
 				primeFactors2.add(long1);
 			}
 		}
@@ -540,10 +602,6 @@ public class NumberUtil {
 				primes.add(numbers[i]);
 		}
 		return primes;
-	}
-
-	private static boolean isPrime(int n) {
-		return isPrime((long) n);
 	}
 
 	static public String getFactorialUsingSum(int n) {
@@ -687,6 +745,29 @@ public class NumberUtil {
 			location = location - index * Integer.parseInt(factorial);
 		}
 		return number.toString();
+	}
+
+	public static boolean isPermutation(int m, int n) {
+		int[] arr = new int[10];
+
+		int temp = n;
+		while (temp > 0) {
+			arr[temp % 10]++;
+			temp /= 10;
+		}
+
+		temp = m;
+		while (temp > 0) {
+			arr[temp % 10]--;
+			temp /= 10;
+		}
+
+		for (int i = 0; i < 10; i++) {
+			if (arr[i] != 0) {
+				return false;
+			}
+		}
+		return true;
 	}
 
 	public static String subtractTwoNumbers(String num1, String num2) {
