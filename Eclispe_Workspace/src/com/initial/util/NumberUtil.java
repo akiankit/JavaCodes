@@ -346,7 +346,7 @@ public class NumberUtil {
 		return isPalindrome(String.valueOf(n));
 	}
 
-	static public int getNumOfDigits(Long number) {
+	static public int getNumOfDigits(long number) {
 		int digitsCount = 0;
 		while (number > 0) {
 			number = number / 10;
@@ -940,21 +940,19 @@ public class NumberUtil {
 		return result;
 	}
 
-	public static Long[] getDigitsInNumber(Long Number) {
-		List<Long> digits = new LinkedList<>();
-		if (Number == 0) {
-			digits.add(0l);
-		} else {
-			while (Number > 0) {
-				digits.add(Number % 10);
-				Number = Number / 10;
-			}
+	public static long[] getDigitsInNumber(long number) {
+		int numOfDigits = getNumOfDigits(number);
+		long[] digits = new long[numOfDigits];
+		if (number == 0) {
+			digits[0] = 0;
+			return digits;
 		}
-		Long[] digitsArray = new Long[digits.size()];
-		for (int i = 0; i < digits.size(); i++) {
-			digitsArray[i] = digits.get(i);
+		int i = numOfDigits - 1;
+		while (number > 0) {
+			digits[i--] = number % 10;
+			number = number / 10;
 		}
-		return digitsArray;
+		return digits;
 	}
 
 	public static long[] getAllCircularRotations(Long number) {
