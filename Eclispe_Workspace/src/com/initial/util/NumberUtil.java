@@ -284,6 +284,38 @@ public class NumberUtil {
 		return count;
 	}
 
+	public static void main(String[] args) {
+		for (int i = 1; i <= 10; i++) {
+			System.out.println(getFactorialMod(i, 10000000000l));
+		}
+	}
+
+	static public Set<Long> getPrimesInRange(int n, int m) {
+		int[] arr = new int[m + 1];
+		if (n % 2 == 0) {
+			n = n + 1;
+		}
+		for (int i = n; i < m + 1; i++) {
+			arr[i] = 1;
+		}
+		int sqrtN = (int) Math.sqrt(m);
+		for (int i = 3; i <= sqrtN; i += 2) {
+			for (int j = 3 * i; j <= m; j += (i + i)) {
+				if (j < n) {
+					continue;
+				}
+				arr[j] = 0;
+			}
+		}
+		Set<Long> primes = new HashSet<>();
+		for (int i = n; i <= m; i += 2) {
+			if (arr[i] == 1) {
+				primes.add((long) i);
+			}
+		}
+		return primes;
+	}
+
 	static public Set<Long> getPrimesListLessThanNSieve(int n) {
 		int[] arr = new int[n + 1];
 		for (int i = 1; i < n + 1; i++) {
@@ -615,6 +647,14 @@ public class NumberUtil {
 		return factorial;
 	}
 
+	static public long getFactorialMod(long n, long mod) {
+		long fact = 1;
+		for (int i = 1; i <= n; i++) {
+			fact = (fact * i) % mod;
+		}
+		return fact;
+	}
+
 	static public String getFactorialUsingMultiplication(int n) {
 		String factorial = "1";
 		for (int i = 1; i <= n; i++) {
@@ -679,15 +719,6 @@ public class NumberUtil {
 	static public String getFibonacciNthTerm(int n) {
 		List<String> terms = getFibonacciSeriesNTerms(n);
 		return terms.get(n - 1);
-	}
-
-	public static void main(String[] args) {
-		long start = System.currentTimeMillis();
-		long num = 1092828991111212121l;
-		// System.out.println(getFibonacciNthTerm(50));
-		int n = getPrimesLessThanNSieve(100000000);
-		System.out.println(n);
-		System.out.println("time taken=" + (System.currentTimeMillis() - start));
 	}
 
 	static public String getFibonacciNthTermAddition(String n) {
@@ -967,6 +998,81 @@ public class NumberUtil {
 			numbers[i] = numberCopy;
 		}
 		return numbers;
+	}
+
+	public static boolean isAllDigitsNine(long[] digits) {
+		for (int i = 0; i < digits.length; i++)
+			if (digits[i] != 9)
+				return false;
+		return true;
+	}
+
+	public static long getNextPalindrome(long number) {
+		long[] digits = getDigitsInNumber(number);
+		int len = digits.length;
+		if (len == 1 && digits[0] != 9)
+			return digits[0] + 1;
+		if (isAllDigitsNine(digits)) {
+			int num = 10;
+			for (int i = 0; i < len - 1; i++) {
+				num *= 10;
+			}
+			num += 1;
+			return num;
+		}
+		int mid = len / 2;
+		int i = mid - 1;
+		int j = len % 2 == 1 ? (mid + 1) : mid;
+		while (i >= 0 && digits[i] == digits[j]) {
+			i--;
+			j++;
+		}
+		boolean isleftSmall = false;
+		if (i < 0 || digits[i] < digits[j]) {
+			isleftSmall = true;
+		}
+		if (!isleftSmall) {
+			while (i >= 0) {
+				digits[j++] = digits[i--];
+			}
+		} else {
+			long carry = 1l;
+			i = mid - 1;
+			if (len % 2 != 0) {
+				digits[mid] += carry;
+				carry = digits[mid] / 10;
+				digits[mid] = digits[mid] % 10;
+				j = mid + 1;
+			} else {
+				j = mid;
+			}
+			while (i >= 0) {
+				digits[i] += carry;
+				carry = digits[i] / 10;
+				digits[i] = digits[i] % 10;
+				digits[j++] = digits[i--];
+			}
+		}
+		long ret = 0l;
+		int x = 0;
+		for (x = 0; x < len - 1; x++) {
+			ret += digits[x];
+			ret *= 10;
+		}
+		ret += digits[x];
+		return ret;
+	}
+
+	public static boolean doesNumberContainEvenNumber(Long number) {
+		if (number == 0)
+			return true;
+		while (number > 0) {
+			long num = number % 10;
+			number = number / 10;
+			if (num % 2 == 0)
+				return true;
+		}
+		return false;
 	}
 
 	/* public static long getNextPrime */

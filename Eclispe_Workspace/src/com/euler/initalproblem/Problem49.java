@@ -12,11 +12,11 @@ import com.initial.util.NumberUtil;
 public class Problem49 {
 
 	public static void main(String[] args) {
-		long nanoTime = System.currentTimeMillis();
+		// long nanoTime = System.currentTimeMillis();
 		List<Long> PrimesLessThan10000 = NumberUtil.getListOfPrimesLessThanN(10000);
 		List<Long> PrimesLessThan1000 = NumberUtil.getListOfPrimesLessThanN(1000);
 		PrimesLessThan10000.removeAll(PrimesLessThan1000);
-		System.out.println(System.currentTimeMillis() - nanoTime);
+		// System.out.println(System.currentTimeMillis() - nanoTime);
 
 		// System.out.println(PrimesLessThan10000);
 		// System.out.println(PrimesLessThan1000.size());
@@ -40,8 +40,8 @@ public class Problem49 {
 				primesCombinations1.put(prime, primesCombinations.get(prime));
 			}
 		}
-		System.out.println(primesCombinations1);
-		System.out.println(primesCombinations1.size());
+		// System.out.println(primesCombinations1);
+		// System.out.println(primesCombinations1.size());
 		keySet = primesCombinations1.keySet();
 		StringBuilder number = null;
 		for (Long prime : keySet) {
@@ -54,7 +54,7 @@ public class Problem49 {
 				long long2 = list.get(i + 1);
 				long long3 = list.get(i + 2);
 				if (long3 - long2 == long2 - long1) {
-					System.out.println("diff=" + (long3 - long2));
+					// System.out.println("diff=" + (long3 - long2));
 					number = new StringBuilder();
 					number = number.append(long1).append(long2).append(long3);
 					break;
@@ -66,7 +66,7 @@ public class Problem49 {
 
 		}
 		System.out.println(number);
-		System.out.println(System.currentTimeMillis() - nanoTime);
+		// System.out.println(System.currentTimeMillis() - nanoTime);
 	}
 
 }

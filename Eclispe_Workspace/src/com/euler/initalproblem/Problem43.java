@@ -15,10 +15,11 @@ public class Problem43 {
 
 	public static void main(String[] args) throws Exception {
 		long time1 = System.currentTimeMillis();
-		// List<Long> combinations = getCombinations(1406357289, 10);
+		List<Long> combinations = getCombinations(1234567809, 10);
+		System.out.println(combinations);
 		// System.out.println(Integer.MAX_VALUE);
-		// System.out.println(combinations.size());
-		// System.out.println(sum);
+		System.out.println(combinations.size());
+		System.out.println(sum);
 		// System.out.println("Time:" + (System.currentTimeMillis() - time1));
 	}
 
@@ -40,12 +41,12 @@ public class Problem43 {
 			List<Long> combinations = getCombinations((number % pow), len - 1);
 			for (Long combination : combinations) {
 				long number1 = firstDigit * pow + combination;
-				// if (len == 10 && !isDivisibleByAll(number1)) {
-				// continue;
-				// }
-				// if (len == 10) {
-				// sum += number1;
-				// }
+				if (len == 10 && !isDivisibleByAll(number1)) {
+					continue;
+				}
+				if (len == 10) {
+					sum += number1;
+				}
 				list.add(number1);
 			}
 		}
@@ -60,7 +61,7 @@ public class Problem43 {
 		// 1430952867 + 1460357289 + 1406357289 + 4130952867 + 4160357289
 		// +4106357289
 		if (number == 1406357289 || number == 1430952867) {
-			System.out.println(number);
+			// System.out.println(number);
 		}
 		String value = String.valueOf(number);
 		if (value.length() != 10) {
@@ -96,6 +97,7 @@ public class Problem43 {
 		if ((num8 * 100 + num9 * 10 + num10) % 17 != 0) {
 			return false;
 		}
+		System.out.println(number);
 		return true;
 	}
 
