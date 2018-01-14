@@ -1,6 +1,7 @@
 package com.initial.util;
 
 import java.math.BigInteger;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -285,9 +286,11 @@ public class NumberUtil {
 	}
 
 	public static void main(String[] args) {
-		for (int i = 1; i <= 10; i++) {
-			System.out.println(getFactorialMod(i, 10000000000l));
-		}
+		long[] digitsInNumber = getDigitsInNumber(12342);
+		System.out.println(Arrays.toString(digitsInNumber));
+		digitsInNumber = getDigitsCountsInNumber(12342);
+		System.out.println(Arrays.toString(digitsInNumber));
+		Arrays.equals(digitsInNumber, null);
 	}
 
 	static public Set<Long> getPrimesInRange(int n, int m) {
@@ -340,23 +343,22 @@ public class NumberUtil {
 
 	static public boolean isPrime(long n) {
 		boolean isPrime = true;
-		if (1 == n) {
-			isPrime = false;
-		} else if (2 == n) {
-			isPrime = true;
-		} else if (n % 2 == 0) {
-			isPrime = false;
-		} else if (n != 5 && n % 5 == 0) {
-			isPrime = false;
-		} else {
-			double sqrt = Math.sqrt(n);
-			for (int i = 3; i <= sqrt; i += 2) {
-				if (n % i == 0) {
-					// System.out.println(n+" is not a prime number.Divisible by
-					// "+i);
-					isPrime = false;
-					break;
-				}
+		if (1 == n)
+			return false;
+		else if (2 == n || n == 5)
+			return true;
+		else if ((n & 1) == 0)
+			return false;
+		else if (n % 10 == 5)
+			return false;
+
+		double sqrt = Math.sqrt(n);
+		for (int i = 3; i <= sqrt; i += 2) {
+			if (n % i == 0) {
+				// System.out.println(n+" is not a prime number.Divisible by
+				// "+i);
+				isPrime = false;
+				break;
 			}
 		}
 		/*
@@ -981,6 +983,19 @@ public class NumberUtil {
 		int i = numOfDigits - 1;
 		while (number > 0) {
 			digits[i--] = number % 10;
+			number = number / 10;
+		}
+		return digits;
+	}
+
+	public static long[] getDigitsCountsInNumber(long number) {
+		long[] digits = new long[10];
+		if (number == 0) {
+			digits[0] = 1;
+			return digits;
+		}
+		while (number > 0) {
+			digits[(int) (number % 10)]++;
 			number = number / 10;
 		}
 		return digits;
