@@ -1,7 +1,6 @@
 package com.initial.util;
 
 import java.math.BigInteger;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -286,11 +285,19 @@ public class NumberUtil {
 	}
 
 	public static void main(String[] args) {
-		long[] digitsInNumber = getDigitsInNumber(12342);
-		System.out.println(Arrays.toString(digitsInNumber));
-		digitsInNumber = getDigitsCountsInNumber(12342);
-		System.out.println(Arrays.toString(digitsInNumber));
-		Arrays.equals(digitsInNumber, null);
+		long max = (long) Math.pow(10, 8);
+		Set<Long> primesListLessThanNSieve = getPrimesListLessThanNSieve((int) Math.sqrt(max));
+		// System.out.println(primesListLessThanNSieve);
+		primePowersCount = new HashMap<>();
+		for (long i = 1; i <= max; i++) {
+			// System.out.println(i + "=>" + countOfPrimePowers(i));
+			if (primesListLessThanNSieve.contains(i)) {
+				continue;
+			}
+			countOfPrimePowers(i);
+		}
+		// System.out.println(primePowersCount);
+
 	}
 
 	static public Set<Long> getPrimesInRange(int n, int m) {
@@ -535,6 +542,39 @@ public class NumberUtil {
 			factors[j] = 1;
 			j++;
 		}
+	}
+
+	static Map<Long, Long> primePowersCount = new HashMap<>();
+
+	static public long countOfPrimePowers(long num) {
+		long num1 = num;
+		long totalCount = 0;
+		long i = 2;
+		for (; i * i <= num; i++) {
+			// int count = 0;
+			if (primePowersCount.containsKey(num)) {
+				// System.out.println("From memory");
+				totalCount += primePowersCount.get(num);
+				primePowersCount.put(num1, totalCount);
+				return totalCount;
+			}
+			while (num % i == 0) {
+				if (primePowersCount.containsKey(num)) {
+					// System.out.println("From memory");
+					totalCount += primePowersCount.get(num);
+					primePowersCount.put(num1, totalCount);
+					return totalCount;
+				}
+				totalCount++;
+				num = num / i;
+			}
+			// totalCount += count;
+		}
+		if (num > 1) {
+			totalCount += 1;
+		}
+		primePowersCount.put(num1, totalCount * 1l);
+		return totalCount;
 	}
 
 	// Modify it with prime factorization
@@ -1088,6 +1128,31 @@ public class NumberUtil {
 				return true;
 		}
 		return false;
+	}
+
+	/**
+	 * Returns C(n,r) mod primeMod.
+	 *
+	 * @param n
+	 * @param r
+	 * @param primeMod
+	 * @return
+	 */
+	public static long calculateBinomialCoefficient(long n, long r, long primeMod) {
+		long numerator = 1;
+		for (long i = r + 1; i <= n; i++) {
+			numerator = numerator * i % primeMod;
+		}
+		long denominator = 1;
+		for (long i = 1; i <= n - r; i++) {
+			denominator = denominator * i % primeMod;
+		}
+		/**
+		 * In case mod is to be taken with prime number, then inverse modulo is
+		 * (a^(mod-2))
+		 */
+		denominator = calculateModPower(denominator, primeMod - 2, primeMod);
+		return (numerator * denominator) % primeMod;
 	}
 
 	/* public static long getNextPrime */
